@@ -590,8 +590,9 @@ checkBtn.addEventListener("click", () => {
 
     } else {
 
-        resultArea.textContent =
-            `❌ 不正解\n正解：${correct}`;
+        resultArea.innerHTML =
+            `<span style="color:#d1242f;">❌ 不正解</span><br><br>
+            <span style="color:#222;">答え：${correct}</span>`;
 
         resultArea.className = "wrong";
 
@@ -641,8 +642,8 @@ showAnswerBtn.addEventListener("click", () => {
 
     const correct = studyList[currentIndex].kr;
 
-    resultArea.textContent =
-        `正解：${correct}`;
+    resultArea.innerHTML =
+        `<span style="color:#222;">答え：${correct}</span>`;
 
     resultArea.className = "";
 

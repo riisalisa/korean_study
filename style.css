@@ -71,13 +71,344 @@ textarea {
     resize: vertical;
 }
 
-.questionBox {
-    background: white;
+/* ========= 基本 ========= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+h1 {
     text-align: center;
+    margin: 20px 0;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #2d7ef7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+button:disabled {
+    background: #999;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.questionBox {
+
+    background: white;
+
+    height: 110px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 0 20px;
+
+}
+
+.buttonRow {
+    display: flex;
+    gap: 10px;
+}
+
+.buttonRow button {
+    flex: 1;
+}
+
+.settingBox,
+.csvArea,
+.favoriteArea {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+#resultArea {
+    min-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+
+    white-space: pre-line;
+}
+
+.correct {
+    color: #1a7f37;
+}
+
+.wrong {
+    color: #d1242f;
+}
+
+#sentenceList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sentenceCard {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.sentenceCard p {
+    margin-bottom: 8px;
+}
+
+.sentenceCard button {
+    margin-top: 8px;
+}
+
+@media (max-width:600px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    button {
+        font-size: 17px;
+    }
+
+    .questionBox {
+        font-size: 20px;
+    }
+
+}
+
+/* ==========================
+   学習設定画面
+========================== */
+
+.topBar {
+
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+
+}
+
+.backButton {
+
+    width: auto;
+    padding: 0;
+
+    background: none;
+    border: none;
+
+    color: #2d7ef7;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+.backButton:hover {
+
+    text-decoration: underline;
+
+}
+
+.radioGroup {
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+}
+
+.radioGroup label {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.radioGroup input {
+
+    width: auto;
+
+}
+
+.sentenceId {
+
+    text-align: right;
+
+    color: #bbb;
+
+    font-size: 12px;
+
+    margin-bottom: 2px;
+
+}
+
+.jpSentence {
+
+    font-size: 16px;
+
+    color: #222;
+
+    margin: 2px 0;
+
+}
+
+.krSentence {
+
     font-size: 22px;
-    min-height: 90px;
+
+    color: #222;
+
+    margin: 0 0 8px 0;
+
+}
+
+/* 例文一覧の編集・削除ボタン */
+
+.sentenceCard .buttonRow {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 6px;
+
+    margin-bottom: 2px;
+
+}
+
+.sentenceCard .buttonRow button {
+
+    width: 60px;
+
+    height: 26px;
+
+    background: #fafafa;
+
+    border: 1px solid #eee;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    padding: 0;
+
+    cursor: pointer;
+
+}
+
+.editBtn {
+
+    color: #2d7ef7;
+
+}
+
+.deleteBtn {
+
+    color: #d9534f;
+
+}
+
+.sentenceCard .buttonRow button:active {
+
+    background: #ececec;
+
+}
+
+/* お気に入りチェック */
+
+.favoriteLabel {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+
+.favoriteLabel input {
+
+    width: auto;
+
+    margin: 0;
+
 }
 
 .buttonRow {
@@ -322,5 +653,17 @@ textarea {
     width: auto;
 
     margin: 0;
+
+}
+
+/* 学習画面の日本語 */
+
+#jpText {
+
+    margin: 0;
+
+    font-size: 24px;
+
+    line-height: 1.4;
 
 }
