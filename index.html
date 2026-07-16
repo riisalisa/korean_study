@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Languages</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>My Languages</h1>
+
+        <!-- ホーム画面 -->
+        <section id="homeScreen" class="screen">
+
+            <h2>ホーム</h2>
+
+            <button id="studyBtn">
+                📚 学習する
+            </button>
+
+            <hr>
+
+            <button id="addBtn">
+                ➕ 例文を追加
+            </button>
+
+            <button id="bulkBtn">
+                📥 一括登録
+            </button>
+
+            <button id="listBtn">
+                📋 例文一覧
+            </button>
+
+        </section>
+
+        <!-- 学習設定画面 -->
+        <section id="studySettingScreen" class="screen hidden">
+
+            <h2>学習設定</h2>
+
+            <div class="topBar">
+
+                <button id="backHomeSetting" class="backButton">
+                    ← ホーム
+                </button>
+
+            </div>
+
+            <hr>
+
+            <div class="settingItem">
+
+                <label for="startIdInput">
+                    開始ID
+                </label>
+
+                <input type="number" id="startIdInput" value="1" min="1">
+
+            </div>
+
+            <br>
+
+            <div class="settingItem">
+
+                <label for="questionCountInput">
+                    出題数
+                </label>
+
+                <input type="number" id="questionCountInput" value="30" min="1" max="100">
+
+            </div>
+
+            <br>
+
+            <p>出題方法</p>
+
+            <div class="radioGroup">
+
+                <label>
+
+                    <input type="radio" name="studyMode" value="order" checked>
+
+                    登録順
+
+                </label>
+
+                <label>
+
+                    <input type="radio" name="studyMode" value="random">
+
+                    ランダム
+
+                </label>
+
+            </div>
+
+            <br><br>
+
+            <button id="startStudyBtn">
+                スタート
+            </button>
+
+        </section>
+
+        <!-- 学習画面 -->
+        <section id="studyScreen" class="screen hidden">
+
+            <h2>学習</h2>
+
+            <div class="topBar">
+
+                <button id="backHome1" class="backButton">
+                    ← ホーム
+                </button>
+
+            </div>
+
+            <p id="progressText">
+                1 / 1 問
+            </p>
+
+            <div class="questionBox">
+
+                <p id="jpText">
+                    日本語がここに表示されます
+                </p>
+
+            </div>
+
+            <input id="answerInput" type="text" placeholder="韓国語を入力">
+
+            <div class="buttonRow">
+
+                <button id="showAnswerBtn">
+                    わからない
+                </button>
+
+                <button id="checkBtn">
+                    判定
+                </button>
+
+            </div>
+
+            <div id="resultArea"></div>
+
+            <button id="nextBtn">
+                次へ
+            </button>
+
+
+        </section>
+
+        <!-- 例文追加画面 -->
+        <section id="addScreen" class="screen hidden">
+
+            <h2>例文を追加</h2>
+
+            <div class="topBar">
+
+                <button id="backHome2" class="backButton">
+                    ← ホーム
+                </button>
+
+            </div>
+
+            <hr>
+
+            <label>日本語</label>
+
+            <input id="jpInput" type="text" placeholder="日本語を入力">
+
+            <label>韓国語</label>
+
+            <input id="krInput" type="text" placeholder="韓国語を入力">
+
+            <label>
+
+                <input id="favoriteCheck" type="checkbox">
+
+                お気に入りに登録
+
+            </label>
+
+            <button id="saveSentence">
+                保存
+            </button>
+
+        </section>
+
+        <!-- 例文一覧画面 -->
+        <section id="listScreen" class="screen hidden">
+
+            <h2>例文一覧</h2>
+
+            <div class="topBar">
+
+                <button id="backHome3" class="backButton">
+                    ← ホーム
+                </button>
+
+            </div>
+
+            <hr>
+
+            <div id="sentenceList">
+
+            </div>
+
+        </section>
+
+        <!-- 一括登録画面 -->
+        <section id="bulkScreen" class="screen hidden">
+
+            <h2>一括登録</h2>
+
+            <div class="topBar">
+
+                <button id="backHome4" class="backButton">
+                    ← ホーム
+                </button>
+
+            </div>
+
+            <hr>
+
+            <p>
+                1行に1文ずつ入力してください。<br>
+                形式：日本語|韓国語
+            </p>
+
+            <textarea id="bulkText" rows="12" placeholder="こんにちは。|안녕하세요.&#10;ありがとう。|감사합니다."></textarea>
+
+            <br>
+
+            <button id="bulkSaveBtn">
+                登録する
+            </button>
+
+            <div id="bulkResult">
+
+            </div>
+
+        </section>
+
+        <!-- 学習終了画面 -->
+        <section id="finishScreen" class="screen hidden">
+
+            <h2>🎉 学習終了</h2>
+
+            <hr>
+
+            <button id="restartStudyBtn">
+                もう一度学習
+            </button>
+
+            <button id="backHomeFinish">
+                ← ホームへ
+            </button>
+
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
