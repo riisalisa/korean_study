@@ -214,3 +214,113 @@ textarea {
     width: auto;
 
 }
+
+.sentenceId {
+
+    text-align: right;
+
+    color: #bbb;
+
+    font-size: 12px;
+
+    margin-bottom: 2px;
+
+}
+
+.jpSentence {
+
+    font-size: 16px;
+
+    color: #222;
+
+    margin: 2px 0;
+
+}
+
+.krSentence {
+
+    font-size: 22px;
+
+    color: #222;
+
+    margin: 0 0 8px 0;
+
+}
+
+/* 例文一覧の編集・削除ボタン */
+
+.sentenceCard .buttonRow {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 6px;
+
+    margin-bottom: 2px;
+
+}
+
+.sentenceCard .buttonRow button {
+
+    width: 60px;
+
+    height: 26px;
+
+    background: #fafafa;
+
+    border: 1px solid #eee;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    padding: 0;
+
+    cursor: pointer;
+
+}
+
+.editBtn {
+
+    color: #2d7ef7;
+
+}
+
+.deleteBtn {
+
+    color: #d9534f;
+
+}
+
+.sentenceCard .buttonRow button:active {
+
+    background: #ececec;
+
+}
+
+/* お気に入りチェック */
+
+.favoriteLabel {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+
+.favoriteLabel input {
+
+    width: auto;
+
+    margin: 0;
+
+}

@@ -91,6 +91,8 @@ let randomMode = false;
 
 let studyList = [];
 
+let editingId = null;
+
 // ==========================
 // script.js Part 2
 // 画面切り替え
@@ -126,6 +128,14 @@ studyBtn.addEventListener("click", () => {
 });
 
 addBtn.addEventListener("click", () => {
+
+    editingId = null;
+
+    jpInput.value = "";
+    krInput.value = "";
+    favoriteCheck.checked = false;
+
+    saveSentence.textContent = "保存";
 
     showScreen(addScreen);
 
@@ -203,7 +213,7 @@ restartStudyBtn.addEventListener("click", () => {
     resultArea.textContent = "";
 
     checkBtn.disabled = false;
-    nextBtn.disabled = true;
+    nextBtn.disabled = false;
 
 });
 
@@ -238,6 +248,41 @@ saveSentence.addEventListener("click", () => {
     if (jp === "" || kr === "") {
 
         alert("日本語と韓国語を入力してください。");
+        return;
+
+    }
+
+    // 編集モード
+    if (editingId !== null) {
+
+        saveSentence.textContent = "保存";
+
+        const target = questions.find(q => q.id === editingId);
+
+        if (target) {
+
+            target.jp = jp;
+            target.kr = kr;
+            target.favorite = favoriteCheck.checked;
+
+        }
+
+        localStorage.setItem(
+            "questions",
+            JSON.stringify(questions)
+        );
+
+        editingId = null;
+
+        jpInput.value = "";
+        krInput.value = "";
+        favoriteCheck.checked = false;
+
+        alert("更新しました！");
+
+        showScreen(listScreen);
+        renderSentenceList();
+
         return;
 
     }
@@ -287,15 +332,15 @@ function renderSentenceList() {
 
         card.innerHTML = `
 
-            <p><strong>ID</strong>：${q.id}</p>
+            <div class="sentenceId">
+                ${q.id}
+            </div>
 
-            <p>
-                <strong>日本語</strong><br>
+            <p class="jpSentence">
                 ${q.jp}
             </p>
 
-            <p>
-                <strong>韓国語</strong><br>
+            <p class="krSentence">
                 ${q.kr}
             </p>
 
@@ -303,7 +348,17 @@ function renderSentenceList() {
                 ${q.favorite ? "⭐ お気に入り" : ""}
             </p>
 
-            <hr>
+            <div class="buttonRow">
+
+                <button class="editBtn" data-id="${q.id}">
+                    編集
+                </button>
+
+                <button class="deleteBtn" data-id="${q.id}">
+                    削除
+                </button>
+
+            </div>
 
         `;
 
@@ -311,6 +366,55 @@ function renderSentenceList() {
 
     });
 
+    // 編集ボタン
+    document.querySelectorAll(".editBtn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            const id = Number(btn.dataset.id);
+
+            const sentence = questions.find(q => q.id === id);
+
+            if (!sentence) return;
+
+            editingId = id;
+
+            jpInput.value = sentence.jp;
+            krInput.value = sentence.kr;
+            favoriteCheck.checked = sentence.favorite;
+
+            saveSentence.textContent = "更新";
+
+            showScreen(addScreen);
+
+        });
+
+    });
+
+
+    // 削除ボタン
+    document.querySelectorAll(".deleteBtn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            const id = Number(btn.dataset.id);
+
+            const ok = confirm("本当に削除しますか？");
+
+            if (!ok) return;
+
+            questions = questions.filter(q => q.id !== id);
+
+            localStorage.setItem(
+                "questions",
+                JSON.stringify(questions)
+            );
+
+            renderSentenceList();
+
+        });
+
+    });
 }
 
 // ==========================
@@ -458,7 +562,7 @@ startStudyBtn.addEventListener("click", () => {
     resultArea.textContent = "";
 
     checkBtn.disabled = false;
-    nextBtn.disabled = true;
+    nextBtn.disabled = false;
 
 });
 
@@ -525,7 +629,7 @@ nextBtn.addEventListener("click", () => {
     resultArea.textContent = "";
 
     checkBtn.disabled = false;
-    nextBtn.disabled = true;
+    nextBtn.disabled = false;
 
 });
 
