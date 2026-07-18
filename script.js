@@ -112,6 +112,9 @@ let answered = false;
 // 編集中の例文
 let editingQuestion = null;
 
+/* 編集前の内容 */
+let originalEditData = null;
+
 /* ==========================
    共通処理（Common）
 ========================== */
@@ -157,6 +160,21 @@ function clearAddForm() {
     jpInput.value = "";
     krInput.value = "";
     favoriteCheck.checked = false;
+
+}
+
+/* 編集内容が変更されたか確認 */
+function updateSaveButton() {
+
+    const changed =
+
+        editJpInput.value.trim() !== originalEditData.jp ||
+
+        editKrInput.value.trim() !== originalEditData.kr ||
+
+        editFavoriteCheck.checked !== originalEditData.favorite;
+
+    saveEditBtn.disabled = !changed;
 
 }
 
@@ -574,8 +592,20 @@ function renderSentenceList() {
         card.className = "sentenceCard";
 
         card.innerHTML = `
-            <div class="sentenceId">
-                ID ${question.id}
+            <div class="sentenceHeader">
+
+                <div class="sentenceId">
+                    ${question.id}
+                </div>
+
+                <button
+                    class="favoriteBtn"
+                    onclick="toggleFavorite(${question.id})">
+
+                    ${question.favorite ? "★" : "☆"}
+
+                </button>
+
             </div>
 
             <div class="jpSentence">
@@ -585,14 +615,6 @@ function renderSentenceList() {
             <div class="krSentence">
                 ${question.kr}
             </div>
-
-            <label class="favoriteLabel">
-                <input
-                    type="checkbox"
-                    ${question.favorite ? "checked" : ""}
-                    onchange="toggleFavorite(${question.id})">
-                お気に入り
-            </label>
 
             <div class="buttonRow">
 
@@ -628,6 +650,8 @@ function toggleFavorite(id) {
 
     saveQuestions();
 
+    renderSentenceList();
+
 }
 
 /* 例文を編集 */
@@ -647,6 +671,16 @@ function editSentence(id) {
     editFavoriteCheck.checked =
         editingQuestion.favorite;
 
+    originalEditData = {
+
+        jp: editingQuestion.jp,
+        kr: editingQuestion.kr,
+        favorite: editingQuestion.favorite
+
+    };
+
+    saveEditBtn.disabled = true;
+
     editModal.classList.remove("hidden");
 
 }
@@ -659,6 +693,13 @@ cancelEditBtn.addEventListener("click", () => {
     editingQuestion = null;
 
 });
+
+/* 編集内容変更 */
+editJpInput.addEventListener("input", updateSaveButton);
+
+editKrInput.addEventListener("input", updateSaveButton);
+
+editFavoriteCheck.addEventListener("change", updateSaveButton);
 
 /* 編集内容を保存 */
 saveEditBtn.addEventListener("click", () => {

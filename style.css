@@ -75,16 +75,6 @@ textarea {
    共通レイアウト
 ========================== */
 
-/* 横並びボタン */
-.buttonRow {
-    display: flex;
-    gap: 10px;
-}
-
-.buttonRow button {
-    flex: 1;
-}
-
 /* 白いカード */
 .settingBox,
 .csvArea,
@@ -300,6 +290,28 @@ textarea {
 }
 
 /* ==========================
+   例文追加画面
+========================== */
+
+/* お気に入り */
+.favoriteLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: fit-content;
+    cursor: pointer;
+}
+
+.favoriteLabel input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin: 0;
+
+    flex-shrink: 0;
+}
+
+/* ==========================
    例文一覧
 ========================== */
 
@@ -313,54 +325,90 @@ textarea {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px 15px 15px;
 }
 
-.sentenceCard p {
+/* ID・お気に入り */
+.sentenceHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     margin-bottom: 8px;
 }
 
-.sentenceCard button {
-    margin-top: 8px;
-}
-
 .sentenceId {
-    text-align: right;
-    color: #bbb;
+    color: #999;
     font-size: 12px;
-    margin-bottom: 2px;
+    line-height: 1;
+
+    padding-top: 2px;
 }
 
+.favoriteBtn {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    background: none;
+
+    font-size: 22px;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+}
+
+.favoriteBtn:active {
+    transform: scale(0.9);
+}
+
+/* 日本語 */
 .jpSentence {
-    font-size: 16px;
+    font-size: 17px;
     color: #222;
-    margin: 4px 0;
+    margin: 8px 0 4px;
 }
 
+/* 韓国語 */
 .krSentence {
     font-size: 22px;
     color: #222;
-    margin: 0 0 8px 0;
+    margin: 0 0 10px;
 }
 
 /* 編集・削除ボタン */
-.sentenceCard .buttonRow {
+.buttonRow {
     display: flex;
     gap: 8px;
-    margin-top: 6px;
-    margin-bottom: 2px;
+    margin-top: 4px;
 }
 
-.sentenceCard .buttonRow button {
-    width: 80px;
+.buttonRow button {
+    flex: 1;
     height: 34px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     background: #fafafa;
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     border-radius: 8px;
+
     font-size: 14px;
-    font-weight: 500;
-    padding: 0;
+    line-height: 1;
     cursor: pointer;
+}
+
+.buttonRow button:active {
+    background: #ececec;
 }
 
 .editBtn {
@@ -371,27 +419,117 @@ textarea {
     color: #d9534f;
 }
 
-.sentenceCard .buttonRow button:active {
-    background: #ececec;
+/* ==========================
+   編集ダイアログ
+========================== */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
 }
 
-/* お気に入り */
-.favoriteLabel {
+.modal.hidden {
+    display: none;
+}
+
+.modalContent {
+    width: 90%;
+    max-width: 360px;
+
+    background: #fff;
+    border-radius: 12px;
+
+    padding: 20px;
+}
+
+.modalContent h3 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.modalContent label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.modalContent input[type="text"] {
+    width: 100%;
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.modalButtons button {
+    width: auto;
+    padding: 8px 16px;
+
+    background: none;
+    border: none;
+
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#cancelEditBtn {
+    color: #666;
+    font-weight: 500;
+}
+
+#saveEditBtn {
+    color: #2d7ef7;
+    font-weight: 600;
+}
+
+#saveEditBtn:disabled {
+    color: #999;
+    cursor: default;
+}
+
+.modalButtons button:hover {
+    background: #f5f5f5;
+    border-radius: 6px;
+}
+
+/* 編集画面の★ */
+.favoriteStarLabel {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 6px;
-    font-size: 16px;
+    gap: 8px;
+    margin-top: 16px;
+
     cursor: pointer;
-    margin: 8px 0;
 }
 
-/* チェックボックス */
-.favoriteLabel input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    cursor: pointer;
+.favoriteStarLabel input {
+    display: none;
+}
+
+.favoriteStarLabel span {
+    font-size: 18px;
+    color: #222;
+}
+
+.favoriteStarLabel span::before {
+    content: "☆ ";
+}
+
+.favoriteStarLabel input:checked+span::before {
+    content: "★ ";
 }
 
 /* ==========================
