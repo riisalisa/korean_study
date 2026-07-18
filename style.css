@@ -71,99 +71,11 @@ textarea {
     resize: vertical;
 }
 
-/* ========= 基本 ========= */
+/* ==========================
+   共通レイアウト
+========================== */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    background: #f5f5f5;
-    color: #222;
-}
-
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.screen {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-h1 {
-    text-align: center;
-    margin: 20px 0;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    background: #2d7ef7;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: .9;
-}
-
-button:disabled {
-    background: #999;
-}
-
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-textarea {
-    resize: vertical;
-}
-
-.questionBox {
-
-    background: white;
-
-    height: 110px;
-
-    border-radius: 10px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    text-align: center;
-
-    padding: 0 20px;
-
-}
-
+/* 横並びボタン */
 .buttonRow {
     display: flex;
     gap: 10px;
@@ -173,276 +85,223 @@ textarea {
     flex: 1;
 }
 
+/* 白いカード */
 .settingBox,
 .csvArea,
 .favoriteArea {
-    background: #ffffff;
+    background: #fff;
     padding: 15px;
     border-radius: 10px;
     border: 1px solid #ddd;
 }
 
-#resultArea {
-    min-height: 40px;
+/* 問題表示エリア */
+.questionBox {
+    background: #fff;
+    height: 90px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    font-size: 18px;
-    font-weight: bold;
+    padding: 0 12px;
+}
 
+/* 戻るボタン */
+.backButton {
+    width: auto;
+    margin-right: auto;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #2d7ef7;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.backButton:hover {
+    text-decoration: underline;
+}
+
+/* テキストボタン */
+.textButton {
+    width: auto;
+    padding: 0;
+    background: none !important;
+    border: none;
+    color: #2d7ef7;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.textButton:hover {
+    text-decoration: underline;
+}
+
+/* 成否表示 */
+.correct {
+    color: #1a7f37;
+}
+
+.wrong {
+    color: #d1242f;
+}
+
+
+/* ==========================
+   ホーム画面
+========================== */
+
+#homeScreen {
+    min-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 8vh;
+}
+
+.pageTitle {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+/* ==========================
+   学習設定画面
+========================== */
+
+.topBar {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 14px;
+}
+
+.radioGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radioGroup label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radioGroup input {
+    width: auto;
+}
+
+/* ==========================
+   学習画面
+========================== */
+
+/* ヘッダー */
+.studyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.studyHeader span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* 日本語問題 */
+#jpText {
+    font-size: 21px;
+    line-height: 1.3;
+}
+
+/* 韓国語表示エリア */
+#answerArea {
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #222;
+}
+
+/* 判定結果 */
+#resultArea {
+    min-height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
     white-space: pre-line;
 }
 
-.correct {
+/* 正解・不正解メッセージ */
+.correctText {
     color: #1a7f37;
+    font-size: 16px;
+    font-weight: 600;
 }
 
-.wrong {
+.wrongText {
     color: #d1242f;
-}
-
-#sentenceList {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.sentenceCard {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-}
-
-.sentenceCard p {
-    margin-bottom: 8px;
-}
-
-.sentenceCard button {
-    margin-top: 8px;
-}
-
-@media (max-width:600px) {
-
-    .container {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
-
-    h2 {
-        font-size: 22px;
-    }
-
-    button {
-        font-size: 17px;
-    }
-
-    .questionBox {
-        font-size: 20px;
-    }
-
-}
-
-/* ==========================
-   学習設定画面
-========================== */
-
-.topBar {
-
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 10px;
-
-}
-
-.backButton {
-
-    width: auto;
-    padding: 0;
-
-    background: none;
-    border: none;
-
-    color: #2d7ef7;
-
     font-size: 16px;
-    font-weight: bold;
-
-    cursor: pointer;
-
+    font-weight: 600;
 }
 
-.backButton:hover {
-
-    text-decoration: underline;
-
-}
-
-.radioGroup {
-
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-}
-
-.radioGroup label {
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-}
-
-.radioGroup input {
-
-    width: auto;
-
-}
-
-.sentenceId {
-
-    text-align: right;
-
-    color: #bbb;
-
-    font-size: 12px;
-
-    margin-bottom: 2px;
-
-}
-
-.jpSentence {
-
-    font-size: 16px;
-
-    color: #222;
-
-    margin: 2px 0;
-
-}
-
-.krSentence {
-
-    font-size: 22px;
-
-    color: #222;
-
-    margin: 0 0 8px 0;
-
-}
-
-/* 例文一覧の編集・削除ボタン */
-
-.sentenceCard .buttonRow {
-
-    display: flex;
-
-    gap: 8px;
-
-    margin-top: 6px;
-
-    margin-bottom: 2px;
-
-}
-
-.sentenceCard .buttonRow button {
-
-    width: 60px;
-
-    height: 26px;
-
-    background: #fafafa;
-
-    border: 1px solid #eee;
-
-    border-radius: 6px;
-
-    font-size: 12px;
-
-    font-weight: 400;
-
-    padding: 0;
-
-    cursor: pointer;
-
-}
-
-.editBtn {
-
-    color: #2d7ef7;
-
-}
-
-.deleteBtn {
-
-    color: #d9534f;
-
-}
-
-.sentenceCard .buttonRow button:active {
-
-    background: #ececec;
-
-}
-
-/* お気に入りチェック */
-
-.favoriteLabel {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    font-size: 16px;
-
-    cursor: pointer;
-
-}
-
-.favoriteLabel input {
-
-    width: auto;
-
-    margin: 0;
-
-}
-
-.buttonRow {
+/* ボタンエリア */
+.studyButtons {
     display: flex;
     gap: 10px;
 }
 
-.buttonRow button {
+.studyButtons button {
     flex: 1;
 }
 
-.settingBox,
-.csvArea,
-.favoriteArea {
-    background: #ffffff;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
+/* 答えを見るボタン */
+#showAnswerBtn {
+    background: #e5e7eb;
+    color: #444;
+    font-size: 15px;
+    font-weight: 500;
 }
 
-#resultArea {
-    min-height: 40px;
-    text-align: center;
+/* 判定ボタン */
+#checkBtn {
+    background: #2d7ef7;
+    color: white;
+    border: none;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
+    order: 2;
 }
 
-.correct {
-    color: #1a7f37;
+/* 次へボタン */
+#nextBtn {
+    background: #2d7ef7;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    order: 1;
 }
 
-.wrong {
-    color: #d1242f;
+/* 学習終了メッセージ */
+.finishMessage {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 30px 0;
 }
+
+/* ==========================
+   例文一覧
+========================== */
 
 #sentenceList {
     display: flex;
@@ -465,7 +324,81 @@ textarea {
     margin-top: 8px;
 }
 
-@media (max-width:600px) {
+.sentenceId {
+    text-align: right;
+    color: #bbb;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.jpSentence {
+    font-size: 16px;
+    color: #222;
+    margin: 4px 0;
+}
+
+.krSentence {
+    font-size: 22px;
+    color: #222;
+    margin: 0 0 8px 0;
+}
+
+/* 編集・削除ボタン */
+.sentenceCard .buttonRow {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    margin-bottom: 2px;
+}
+
+.sentenceCard .buttonRow button {
+    width: 80px;
+    height: 34px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+    cursor: pointer;
+}
+
+.editBtn {
+    color: #2d7ef7;
+}
+
+.deleteBtn {
+    color: #d9534f;
+}
+
+.sentenceCard .buttonRow button:active {
+    background: #ececec;
+}
+
+/* お気に入り */
+.favoriteLabel {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 8px 0;
+}
+
+/* チェックボックス */
+.favoriteLabel input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* ==========================
+   レスポンシブ
+========================== */
+
+@media (max-width: 600px) {
 
     .container {
         padding: 15px;
@@ -486,184 +419,5 @@ textarea {
     .questionBox {
         font-size: 20px;
     }
-
-}
-
-/* ==========================
-   学習設定画面
-========================== */
-
-.topBar {
-
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom: 10px;
-
-}
-
-.backButton {
-
-    width: auto;
-    padding: 0;
-
-    background: none;
-    border: none;
-
-    color: #2d7ef7;
-
-    font-size: 16px;
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-.backButton:hover {
-
-    text-decoration: underline;
-
-}
-
-.radioGroup {
-
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-}
-
-.radioGroup label {
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-}
-
-.radioGroup input {
-
-    width: auto;
-
-}
-
-.sentenceId {
-
-    text-align: right;
-
-    color: #bbb;
-
-    font-size: 12px;
-
-    margin-bottom: 2px;
-
-}
-
-.jpSentence {
-
-    font-size: 16px;
-
-    color: #222;
-
-    margin: 2px 0;
-
-}
-
-.krSentence {
-
-    font-size: 22px;
-
-    color: #222;
-
-    margin: 0 0 8px 0;
-
-}
-
-/* 例文一覧の編集・削除ボタン */
-
-.sentenceCard .buttonRow {
-
-    display: flex;
-
-    gap: 8px;
-
-    margin-top: 6px;
-
-    margin-bottom: 2px;
-
-}
-
-.sentenceCard .buttonRow button {
-
-    width: 60px;
-
-    height: 26px;
-
-    background: #fafafa;
-
-    border: 1px solid #eee;
-
-    border-radius: 6px;
-
-    font-size: 12px;
-
-    font-weight: 400;
-
-    padding: 0;
-
-    cursor: pointer;
-
-}
-
-.editBtn {
-
-    color: #2d7ef7;
-
-}
-
-.deleteBtn {
-
-    color: #d9534f;
-
-}
-
-.sentenceCard .buttonRow button:active {
-
-    background: #ececec;
-
-}
-
-/* お気に入りチェック */
-
-.favoriteLabel {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    font-size: 16px;
-
-    cursor: pointer;
-
-}
-
-.favoriteLabel input {
-
-    width: auto;
-
-    margin: 0;
-
-}
-
-/* 学習画面の日本語 */
-
-#jpText {
-
-    margin: 0;
-
-    font-size: 24px;
-
-    line-height: 1.4;
 
 }
