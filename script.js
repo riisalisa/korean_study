@@ -38,6 +38,8 @@ const showAnswerBtn = document.getElementById("showAnswerBtn");
 const checkBtn = document.getElementById("checkBtn");
 const restartStudyBtn = document.getElementById("restartStudyBtn");
 const speakBtn = document.getElementById("speakBtn");
+const reviewBtn = document.getElementById("reviewBtn");
+const reviewIcon = document.getElementById("reviewIcon");
 
 /* 例文追加・一括登録 */
 const saveSentence = document.getElementById("saveSentence");
@@ -218,7 +220,8 @@ function updateSaveButton() {
 
         editKrInput.value.trim() !== originalEditData.kr ||
 
-        editFavoriteCheck.checked !== originalEditData.favorite;
+        editFavoriteCheck.checked !==
+        originalEditData.review
 
     saveEditBtn.disabled = !changed;
 
@@ -359,6 +362,69 @@ backHome1.addEventListener("click", () => {
 
 });
 
+/* 読み上げ */
+speakBtn.addEventListener("click", () => {
+
+    if (studyList.length === 0) return;
+
+    const question =
+        studyList[currentIndex];
+
+    const languageMap = {
+
+        ko: "ko-KR",
+        en: "en-US",
+        zh: "zh-CN",
+        fr: "fr-FR"
+
+    };
+
+    speak(
+
+        question.kr,
+
+        languageMap[question.language] || "ko-KR"
+
+    );
+
+});
+
+/* 復習ボタン */
+reviewBtn.addEventListener("click", toggleStudyReview);
+
+/* 復習切り替え */
+function toggleStudyReview() {
+
+    if (studyList.length === 0) return;
+
+    const question = studyList[currentIndex];
+
+    question.review = !question.review;
+
+    saveQuestions();
+
+    updateReviewIcon();
+
+}
+
+function updateReviewIcon() {
+
+    if (studyList.length === 0) return;
+
+    const question = studyList[currentIndex];
+
+    if (question.review) {
+
+        reviewIcon.classList.add("filled");
+
+    } else {
+
+        reviewIcon.classList.remove("filled");
+
+    }
+
+}
+
 /* 答えを表示・非表示 */
 showAnswerBtn.addEventListener("click", () => {
 
@@ -449,6 +515,8 @@ checkBtn.addEventListener("click", () => {
     progressText.textContent =
         `${currentIndex + 1} / ${studyList.length} 問`;
 
+    updateReviewIcon();
+
     // 学習画面を初期化
     answerInput.value = "";
 
@@ -473,33 +541,6 @@ checkBtn.addEventListener("click", () => {
 
 });
 
-/* 読み上げ */
-speakBtn.addEventListener("click", () => {
-
-    if (studyList.length === 0) return;
-
-    const question =
-        studyList[currentIndex];
-
-    const languageMap = {
-
-        ko: "ko-KR",
-        en: "en-US",
-        zh: "zh-CN",
-        fr: "fr-FR"
-
-    };
-
-    speak(
-
-        question.kr,
-
-        languageMap[question.language] || "ko-KR"
-
-    );
-
-});
-
 /* ==========================
    学習終了画面（Finish）
 ========================== */
@@ -516,6 +557,8 @@ restartStudyBtn.addEventListener("click", () => {
 
     progressText.textContent =
         `${currentIndex + 1} / ${studyList.length} 問`;
+
+    updateReviewIcon();
 
     // 学習画面を初期化
     answerInput.value = "";
@@ -583,7 +626,7 @@ saveSentence.addEventListener("click", () => {
 
         kr,
 
-        favorite: favoriteCheck.checked
+        review: false
 
     });
 
@@ -649,7 +692,7 @@ bulkSaveBtn.addEventListener("click", () => {
 
             kr,
 
-            favorite: false
+            review: false
 
         });
 
@@ -734,9 +777,11 @@ function renderSentenceList() {
 
                     <button
                         class="favoriteBtn"
-                        onclick="toggleFavorite(${question.id})">
+                        onclick="toggleReview(${question.id})">
 
-                        ${question.favorite ? "★" : "☆"}
+                        <span class="material-symbols-outlined ${question.review ? "filled" : ""}">
+                            push_pin
+                        </span>
 
                     </button>
 
@@ -829,6 +874,21 @@ function toggleFavorite(id) {
 
 }
 
+/* 復習切り替え */
+function toggleReview(id) {
+
+    const question = questions.find(q => q.id === id);
+
+    if (!question) return;
+
+    question.review = !question.review;
+
+    saveQuestions();
+
+    renderSentenceList();
+
+}
+
 /* 例文を編集 */
 function editSentence(id) {
 
@@ -844,13 +904,13 @@ function editSentence(id) {
         editingQuestion.kr;
 
     editFavoriteCheck.checked =
-        editingQuestion.favorite;
+        editingQuestion.review;
 
     originalEditData = {
 
         jp: editingQuestion.jp,
         kr: editingQuestion.kr,
-        favorite: editingQuestion.favorite
+        review: editingQuestion.review
 
     };
 
@@ -897,7 +957,7 @@ saveEditBtn.addEventListener("click", () => {
 
     editingQuestion.kr = kr;
 
-    editingQuestion.favorite =
+    editingQuestion.review =
         editFavoriteCheck.checked;
 
     saveQuestions();

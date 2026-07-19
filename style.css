@@ -138,6 +138,37 @@ textarea {
     color: #d1242f;
 }
 
+/* ==========================
+   アイコン
+========================== */
+/* Material Icons（復習ピン） */
+.material-symbols-outlined {
+
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+    font-size: 22px;
+
+    color: #999;
+
+    transition: .2s;
+
+}
+
+.material-symbols-outlined.filled {
+
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+    color: #2d7ef7;
+
+}
 
 /* ==========================
    ホーム画面
@@ -235,7 +266,7 @@ textarea {
 
 /* 読み上げボタン */
 .speakBtn {
-    display: none;
+    display: inline;
 
     padding: 0;
     margin: 0;
@@ -261,6 +292,44 @@ textarea {
 .speakBtn:hover {
     text-decoration: none;
     opacity: 0.7;
+}
+
+/* 学習画面 復習ボタン */
+.reviewBtn {
+
+    display: inline;
+
+    padding: 0;
+    margin: 0;
+
+    width: auto;
+    height: auto;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+
+}
+
+.reviewBtn:hover {
+
+    opacity: .7;
+
+}
+
+.reviewBtn .material-symbols-outlined {
+
+    font-size: 20px;
+
+    color: #999;
+
+}
+
+.reviewBtn .material-symbols-outlined.filled {
+
+    color: #2d7ef7;
+
 }
 
 /* 判定結果 */
@@ -695,11 +764,12 @@ textarea {
 }
 
 .favoriteStarLabel span::before {
-    content: "☆ ";
+    content: "📌 ";
+    opacity: .35;
 }
 
 .favoriteStarLabel input:checked+span::before {
-    content: "★ ";
+    opacity: 1;
 }
 
 /* ==========================
