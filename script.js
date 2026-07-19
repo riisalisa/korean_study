@@ -615,6 +615,19 @@ saveSentence.addEventListener("click", () => {
 
     }
 
+    // 重複チェック
+    const exists = questions.some(q =>
+        q.jp === jp && q.kr === kr
+    );
+
+    if (exists) {
+
+        alert("同じ例文が登録されています。");
+
+        return;
+
+    }
+
     // 新しい例文を追加
     questions.push({
 
@@ -659,6 +672,8 @@ bulkSaveBtn.addEventListener("click", () => {
 
     let count = 0;
 
+    let duplicateCount = 0;
+
     lines.forEach(line => {
 
         const parts = line.split("|");
@@ -676,6 +691,19 @@ bulkSaveBtn.addEventListener("click", () => {
 
         // 空欄チェック
         if (!jp || !kr) {
+
+            return;
+
+        }
+
+        // 重複チェック
+        const exists = questions.some(q =>
+            q.jp === jp && q.kr === kr
+        );
+
+        if (exists) {
+
+            duplicateCount++;
 
             return;
 
@@ -704,9 +732,15 @@ bulkSaveBtn.addEventListener("click", () => {
     saveQuestions();
 
     // 登録結果を表示
-    bulkResult.textContent =
-        `${count}件登録しました。`;
+    bulkResult.innerHTML =
+        `${count}件登録しました`;
 
+    if (duplicateCount > 0) {
+
+        bulkResult.innerHTML +=
+            `<br>${duplicateCount}件は既に登録済みです`;
+
+    }
     // 入力欄を初期化
     bulkText.value = "";
 
