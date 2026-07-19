@@ -43,10 +43,13 @@ const speakBtn = document.getElementById("speakBtn");
 const saveSentence = document.getElementById("saveSentence");
 const bulkSaveBtn = document.getElementById("bulkSaveBtn");
 
+/* 例文一覧　*/
+const normalModeBtn = document.getElementById("normalModeBtn");
+const cardModeBtn = document.getElementById("cardModeBtn");
+
 /* 編集ダイアログ */
 const cancelEditBtn = document.getElementById("cancelEditBtn");
 const saveEditBtn = document.getElementById("saveEditBtn");
-
 
 /* ==========================
    入力欄取得
@@ -118,6 +121,11 @@ let editingQuestion = null;
 
 /* 編集前の内容 */
 let originalEditData = null;
+
+/* 例文一覧の表示モード
+   false = 通常
+   true = 暗記カード */
+let cardMode = false;
 
 /* ==========================
    共通処理（Common）
@@ -248,6 +256,12 @@ bulkBtn.addEventListener("click", () => {
 
 /* 例文一覧画面へ */
 listBtn.addEventListener("click", () => {
+
+    /* 通常モードに戻す */
+    cardMode = false;
+
+    normalModeBtn.classList.add("active");
+    cardModeBtn.classList.remove("active");
 
     renderSentenceList();
 
@@ -666,6 +680,30 @@ backHome3.addEventListener("click", () => {
 
 });
 
+/* 通常モード */
+normalModeBtn.addEventListener("click", () => {
+
+    cardMode = false;
+
+    normalModeBtn.classList.add("active");
+    cardModeBtn.classList.remove("active");
+
+    renderSentenceList();
+
+});
+
+/* 暗記モード */
+cardModeBtn.addEventListener("click", () => {
+
+    cardMode = true;
+
+    cardModeBtn.classList.add("active");
+    normalModeBtn.classList.remove("active");
+
+    renderSentenceList();
+
+});
+
 /* 例文一覧を表示 */
 function renderSentenceList() {
 
@@ -710,10 +748,15 @@ function renderSentenceList() {
                 ${question.jp}
             </div>
 
-            <div class="krSentence">
+            <div
+                class="krSentence ${cardMode ? "hiddenSentence" : ""}"
+                onclick="${cardMode ? "toggleSentence(this)" : ""}">
+
                 ${question.kr}
+
             </div>
 
+            ${cardMode ? "" : `
             <div class="buttonRow">
 
                 <button
@@ -729,6 +772,7 @@ function renderSentenceList() {
                 </button>
 
             </div>
+            `}
         `;
 
         sentenceList.appendChild(card);
@@ -762,6 +806,13 @@ function speakSentence(id) {
     );
 
 }
+
+/* 韓国語の表示・非表示 */
+window.toggleSentence = function (element) {
+
+    element.classList.toggle("hiddenSentence");
+
+};
 
 /* お気に入り切り替え */
 function toggleFavorite(id) {

@@ -384,6 +384,49 @@ textarea {
     padding: 10px 15px 15px;
 }
 
+/* 表示モード切替 */
+.listModeArea {
+    display: flex;
+
+    margin-bottom: 12px;
+}
+
+.modeBtn {
+    flex: 1;
+
+    padding: 10px 0;
+
+    border: 1px solid #dcdcdc;
+
+    background: #fff;
+    color: #666;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+/* 左側 */
+.modeBtn:first-child {
+    border-radius: 8px 0 0 8px;
+    border-right: none;
+}
+
+/* 右側 */
+.modeBtn:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+/* 選択中 */
+.modeBtn.active {
+    background: #2d7ef7;
+    color: #fff;
+    border-color: #2d7ef7;
+}
+
 /* ID・お気に入り */
 .sentenceHeader {
     display: flex;
@@ -465,16 +508,49 @@ textarea {
 
 /* 日本語 */
 .jpSentence {
+    width: 100%;
+
+    margin: 8px 0 4px;
+    padding: 4px 8px;
+
     font-size: 17px;
     color: #222;
-    margin: 8px 0 4px;
 }
 
-/* 韓国語 */
+/* 韓国語（暗記カード） */
 .krSentence {
-    font-size: 22px;
-    color: #222;
+    width: 100%;
+
     margin: 0 0 10px;
+    padding: 8px;
+
+    min-height: 44px;
+
+    font-size: 22px;
+    line-height: 1.4;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+    user-select: none;
+
+    transition: .2s;
+}
+
+/* 非表示状態 */
+.krSentence.hiddenSentence {
+
+    color: transparent;
+
+    background: #f3f4f6;
+
+}
+
+/* タップ時 */
+.krSentence.hiddenSentence:active {
+
+    background: #e5e7eb;
+
 }
 
 /* 編集・削除ボタン */
