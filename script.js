@@ -10,7 +10,7 @@ const listScreen = document.getElementById("listScreen");
 const bulkScreen = document.getElementById("bulkScreen");
 const finishScreen = document.getElementById("finishScreen");
 
-// 全画面
+/* 全画面 */
 const screens = document.querySelectorAll(".screen");
 
 
@@ -18,13 +18,13 @@ const screens = document.querySelectorAll(".screen");
    ボタン取得
 ========================== */
 
-// ホーム
+/* ホーム */
 const studyBtn = document.getElementById("studyBtn");
 const addBtn = document.getElementById("addBtn");
 const bulkBtn = document.getElementById("bulkBtn");
 const listBtn = document.getElementById("listBtn");
 
-// 戻る
+/* 戻る */
 const backHomeSetting = document.getElementById("backHomeSetting");
 const backHome1 = document.getElementById("backHome1");
 const backHome2 = document.getElementById("backHome2");
@@ -32,40 +32,43 @@ const backHome3 = document.getElementById("backHome3");
 const backHome4 = document.getElementById("backHome4");
 const backHomeFinish = document.getElementById("backHomeFinish");
 
-// 学習
+/* 学習 */
 const startStudyBtn = document.getElementById("startStudyBtn");
 const showAnswerBtn = document.getElementById("showAnswerBtn");
 const checkBtn = document.getElementById("checkBtn");
 const restartStudyBtn = document.getElementById("restartStudyBtn");
+const speakBtn = document.getElementById("speakBtn");
 
-// 例文
+/* 例文追加・一括登録 */
 const saveSentence = document.getElementById("saveSentence");
 const bulkSaveBtn = document.getElementById("bulkSaveBtn");
 
-// 編集ダイアログ
+/* 編集ダイアログ */
 const cancelEditBtn = document.getElementById("cancelEditBtn");
 const saveEditBtn = document.getElementById("saveEditBtn");
+
 
 /* ==========================
    入力欄取得
 ========================== */
 
-// 学習設定
+/* 学習設定 */
 const startIdInput = document.getElementById("startIdInput");
 const questionCountInput = document.getElementById("questionCountInput");
 
-// 学習
+/* 学習 */
 const answerInput = document.getElementById("answerInput");
 
-// 例文追加
+/* 例文追加 */
+const languageSelect = document.getElementById("languageSelect");
 const jpInput = document.getElementById("jpInput");
 const krInput = document.getElementById("krInput");
 const favoriteCheck = document.getElementById("favoriteCheck");
 
-// 一括登録
+/* 一括登録 */
 const bulkText = document.getElementById("bulkText");
 
-// 編集ダイアログ
+/* 編集ダイアログ */
 const editJpInput = document.getElementById("editJpInput");
 const editKrInput = document.getElementById("editKrInput");
 const editFavoriteCheck = document.getElementById("editFavoriteCheck");
@@ -75,41 +78,42 @@ const editFavoriteCheck = document.getElementById("editFavoriteCheck");
    表示エリア取得
 ========================== */
 
-// 学習
+/* 学習 */
 const progressText = document.getElementById("progressText");
 const jpText = document.getElementById("jpText");
 const resultArea = document.getElementById("resultArea");
 const answerArea = document.getElementById("answerArea");
 
-// 一括登録
+/* 一括登録 */
 const bulkResult = document.getElementById("bulkResult");
 
-// 例文一覧
+/* 例文一覧 */
 const sentenceList = document.getElementById("sentenceList");
 
-// 編集ダイアログ
+/* 編集ダイアログ */
 const editModal = document.getElementById("editModal");
+
 
 /* ==========================
    状態変数（State）
 ========================== */
 
-// 保存されている例文
+/* 保存されている例文 */
 let questions = [];
 
-// 学習で使用する例文
+/* 学習で使用する例文 */
 let studyList = [];
 
-// 現在の問題番号
+/* 現在の問題番号 */
 let currentIndex = 0;
 
-// 答えを表示しているか
+/* 答えを表示しているか */
 let answerVisible = false;
 
-// 判定済みか
+/* 判定済みか */
 let answered = false;
 
-// 編集中の例文
+/* 編集中の例文 */
 let editingQuestion = null;
 
 /* 編集前の内容 */
@@ -157,9 +161,43 @@ function loadQuestions() {
 /* 例文追加フォームを初期化 */
 function clearAddForm() {
 
+    languageSelect.value = "ko";
+
     jpInput.value = "";
+
     krInput.value = "";
+
     favoriteCheck.checked = false;
+
+}
+
+/* 音声を読み上げる */
+function speak(text, language) {
+
+    if (!text) return;
+
+    speechSynthesis.cancel();
+
+    const utterance =
+        new SpeechSynthesisUtterance(text);
+
+    utterance.lang = language;
+
+    speechSynthesis.speak(utterance);
+
+}
+
+/* 音声ボタンを表示 */
+function showSpeakButton() {
+
+    speakBtn.classList.add("show");
+
+}
+
+/* 音声ボタンを非表示 */
+function hideSpeakButton() {
+
+    speakBtn.classList.remove("show");
 
 }
 
@@ -282,6 +320,8 @@ startStudyBtn.addEventListener("click", () => {
 
     answerArea.textContent = "";
 
+    hideSpeakButton();
+
     answerVisible = false;
 
     showAnswerBtn.textContent = "答えを表示";
@@ -317,12 +357,16 @@ showAnswerBtn.addEventListener("click", () => {
         answerArea.textContent =
             studyList[currentIndex].kr;
 
+        showSpeakButton();
+
         showAnswerBtn.textContent =
             "答えを隠す";
 
     } else {
 
         answerArea.textContent = "";
+
+        hideSpeakButton();
 
         showAnswerBtn.textContent =
             "答えを表示";
@@ -353,15 +397,20 @@ checkBtn.addEventListener("click", () => {
             resultArea.innerHTML =
                 '<span class="wrongText">❌ 不正解</span>';
 
-            answerArea.textContent = correctAnswer;
+            answerArea.textContent =
+                correctAnswer;
+
+            showSpeakButton();
 
         }
 
         answered = true;
 
-        checkBtn.textContent = "次へ";
+        checkBtn.textContent =
+            "次へ";
 
-        checkBtn.style.background = "#22c55e";
+        checkBtn.style.background =
+            "#22c55e";
 
         return;
 
@@ -393,6 +442,8 @@ checkBtn.addEventListener("click", () => {
 
     answerArea.textContent = "";
 
+    hideSpeakButton();
+
     answerVisible = false;
 
     showAnswerBtn.textContent =
@@ -400,9 +451,38 @@ checkBtn.addEventListener("click", () => {
 
     answered = false;
 
-    checkBtn.textContent = "判定";
+    checkBtn.textContent =
+        "判定";
 
-    checkBtn.style.background = "#2d7ef7";
+    checkBtn.style.background =
+        "#2d7ef7";
+
+});
+
+/* 読み上げ */
+speakBtn.addEventListener("click", () => {
+
+    if (studyList.length === 0) return;
+
+    const question =
+        studyList[currentIndex];
+
+    const languageMap = {
+
+        ko: "ko-KR",
+        en: "en-US",
+        zh: "zh-CN",
+        fr: "fr-FR"
+
+    };
+
+    speak(
+
+        question.kr,
+
+        languageMap[question.language] || "ko-KR"
+
+    );
 
 });
 
@@ -463,6 +543,8 @@ backHome2.addEventListener("click", () => {
 /* 例文を保存 */
 saveSentence.addEventListener("click", () => {
 
+    const language = languageSelect.value;
+
     const jp = jpInput.value.trim();
 
     const kr = krInput.value.trim();
@@ -480,6 +562,8 @@ saveSentence.addEventListener("click", () => {
     questions.push({
 
         id: questions.length + 1,
+
+        language,
 
         jp,
 
@@ -544,6 +628,8 @@ bulkSaveBtn.addEventListener("click", () => {
         questions.push({
 
             id: questions.length + 1,
+
+            language: "ko",
 
             jp,
 
