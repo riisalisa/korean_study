@@ -684,13 +684,25 @@ function renderSentenceList() {
                     ${question.id}
                 </div>
 
-                <button
-                    class="favoriteBtn"
-                    onclick="toggleFavorite(${question.id})">
+                <div class="headerButtons">
 
-                    ${question.favorite ? "★" : "☆"}
+                    <button
+                        class="listSpeakBtn"
+                        onclick="speakSentence(${question.id})">
 
-                </button>
+                        ▶︎
+
+                    </button>
+
+                    <button
+                        class="favoriteBtn"
+                        onclick="toggleFavorite(${question.id})">
+
+                        ${question.favorite ? "★" : "☆"}
+
+                    </button>
+
+                </div>
 
             </div>
 
@@ -722,6 +734,32 @@ function renderSentenceList() {
         sentenceList.appendChild(card);
 
     });
+
+}
+
+/* 例文を読み上げ */
+function speakSentence(id) {
+
+    const question = questions.find(q => q.id === id);
+
+    if (!question) return;
+
+    const languageMap = {
+
+        ko: "ko-KR",
+        en: "en-US",
+        zh: "zh-CN",
+        fr: "fr-FR"
+
+    };
+
+    speak(
+
+        question.kr,
+
+        languageMap[question.language] || "ko-KR"
+
+    );
 
 }
 

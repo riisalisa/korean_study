@@ -401,6 +401,44 @@ textarea {
     padding-top: 2px;
 }
 
+/* ヘッダーボタン */
+.headerButtons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 読み上げボタン */
+.listSpeakBtn {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    background: none;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+
+    color: #666;
+    cursor: pointer;
+}
+
+.listSpeakBtn:hover {
+    color: #2d7ef7;
+}
+
+.listSpeakBtn:active {
+    transform: scale(0.9);
+}
+
 .favoriteBtn {
     width: 24px;
     height: 24px;
