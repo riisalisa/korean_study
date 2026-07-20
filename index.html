@@ -21,25 +21,84 @@
         =========================== -->
         <section id="homeScreen" class="screen">
 
-            <h2>ホーム</h2>
+            <h2 class="homeTitle">
+                ホーム
+            </h2>
 
-            <button id="studyBtn">
-                📚 学習する
-            </button>
+            <!-- ホームメニュー -->
+            <div class="homeMenu">
 
-            <hr>
+                <!-- 学習 -->
+                <div id="studyBtn" class="homeCard homeCardMain">
 
-            <button id="addBtn">
-                ➕ 例文を追加
-            </button>
+                    <span class="homeIcon">
 
-            <button id="bulkBtn">
-                📥 一括登録
-            </button>
+                        <span class="material-symbols-outlined">
+                            menu_book
+                        </span>
 
-            <button id="listBtn">
-                📋 例文一覧
-            </button>
+                    </span>
+
+                    <span class="homeCardTitle">
+                        学習する
+                    </span>
+
+                </div>
+
+                <!-- 例文一覧 -->
+                <div id="listBtn" class="homeCard homeCardMain">
+
+                    <span class="homeIcon">
+
+                        <span class="material-symbols-outlined">
+                            list_alt
+                        </span>
+
+                    </span>
+
+                    <span class="homeCardTitle">
+                        例文一覧
+                    </span>
+
+                </div>
+
+                <div class="homeDivider"></div>
+
+                <!-- 例文追加 -->
+                <div id="addBtn" class="homeCard homeCardSub">
+
+                    <span class="homeIcon">
+
+                        <span class="material-symbols-outlined">
+                            add
+                        </span>
+
+                    </span>
+
+                    <span class="homeCardTitle">
+                        例文を追加
+                    </span>
+
+                </div>
+
+                <!-- 一括登録 -->
+                <div id="bulkBtn" class="homeCard homeCardSub">
+
+                    <span class="homeIcon">
+
+                        <span class="material-symbols-outlined">
+                            upload
+                        </span>
+
+                    </span>
+
+                    <span class="homeCardTitle">
+                        一括登録
+                    </span>
+
+                </div>
+
+            </div>
 
         </section>
 
