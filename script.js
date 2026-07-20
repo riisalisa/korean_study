@@ -44,6 +44,13 @@ const reviewIcon = document.getElementById("reviewIcon");
 const saveSentence = document.getElementById("saveSentence");
 const bulkSaveBtn = document.getElementById("bulkSaveBtn");
 
+/* 表示設定 */
+const languageFilter = document.getElementById("languageFilter");
+
+const contentFilter = document.getElementById("contentFilter");
+
+const sortFilter = document.getElementById("sortFilter");
+
 /* 例文一覧　*/
 const normalModeBtn = document.getElementById("normalModeBtn");
 const cardModeBtn = document.getElementById("cardModeBtn");
@@ -747,6 +754,13 @@ backHome3.addEventListener("click", () => {
 
 });
 
+/* 表示設定変更 */
+languageFilter.addEventListener("change", renderSentenceList);
+
+contentFilter.addEventListener("change", renderSentenceList);
+
+sortFilter.addEventListener("change", renderSentenceList);
+
 /* 通常モード */
 normalModeBtn.addEventListener("click", () => {
 
@@ -776,7 +790,16 @@ function renderSentenceList() {
 
     sentenceList.innerHTML = "";
 
-    questions.forEach(question => {
+    let list = [...questions];
+
+    /* 表示内容 */
+    if (contentFilter.value === "review") {
+
+        list = list.filter(question => question.review);
+
+    }
+
+    list.forEach(question => {
 
         const card = document.createElement("div");
 
