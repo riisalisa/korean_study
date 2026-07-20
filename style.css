@@ -114,30 +114,6 @@ textarea {
     text-decoration: underline;
 }
 
-/* テキストボタン */
-.textButton {
-    width: auto;
-    padding: 0;
-    background: none !important;
-    border: none;
-    color: #2d7ef7;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.textButton:hover {
-    text-decoration: underline;
-}
-
-/* 成否表示 */
-.correct {
-    color: #1a7f37;
-}
-
-.wrong {
-    color: #d1242f;
-}
-
 /* ==========================
    アイコン
 ========================== */
@@ -250,18 +226,25 @@ textarea {
 #answerArea {
     min-height: 40px;
 
-    width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
 
-    font-size: 22px;
-    color: #222;
-
     text-align: center;
 
-    word-break: break-word;
+    white-space: normal;
+    word-break: keep-all;
+
+    font-size: 15px;
+    color: #666;
+
+    cursor: pointer;
+}
+
+#answerArea.show {
+    font-size: 22px;
+    color: #222;
+    font-weight: 500;
 }
 
 /* 読み上げボタン */
@@ -283,10 +266,6 @@ textarea {
     line-height: 1;
 
     cursor: pointer;
-}
-
-.speakBtn.show {
-    display: inline;
 }
 
 .speakBtn:hover {
@@ -367,14 +346,6 @@ textarea {
     flex: 1;
 }
 
-/* 答えを見るボタン */
-#showAnswerBtn {
-    background: #e5e7eb;
-    color: #444;
-    font-size: 15px;
-    font-weight: 500;
-}
-
 /* 判定ボタン */
 #checkBtn {
     background: #2d7ef7;
@@ -383,16 +354,6 @@ textarea {
     font-size: 18px;
     font-weight: 600;
     order: 2;
-}
-
-/* 次へボタン */
-#nextBtn {
-    background: #2d7ef7;
-    color: white;
-    border: none;
-    font-size: 18px;
-    font-weight: 600;
-    order: 1;
 }
 
 /* 学習終了メッセージ */

@@ -34,7 +34,6 @@ const backHomeFinish = document.getElementById("backHomeFinish");
 
 /* 学習 */
 const startStudyBtn = document.getElementById("startStudyBtn");
-const showAnswerBtn = document.getElementById("showAnswerBtn");
 const checkBtn = document.getElementById("checkBtn");
 const restartStudyBtn = document.getElementById("restartStudyBtn");
 const speakBtn = document.getElementById("speakBtn");
@@ -88,6 +87,7 @@ const progressText = document.getElementById("progressText");
 const jpText = document.getElementById("jpText");
 const resultArea = document.getElementById("resultArea");
 const answerArea = document.getElementById("answerArea");
+answerArea.addEventListener("click", toggleAnswer);
 
 /* 一括登録 */
 const bulkResult = document.getElementById("bulkResult");
@@ -112,7 +112,7 @@ let studyList = [];
 /* 現在の問題番号 */
 let currentIndex = 0;
 
-/* 答えを表示しているか */
+/* 答えを表示中か */
 let answerVisible = false;
 
 /* 判定済みか */
@@ -194,20 +194,6 @@ function speak(text, language) {
     utterance.lang = language;
 
     speechSynthesis.speak(utterance);
-
-}
-
-/* 音声ボタンを表示 */
-function showSpeakButton() {
-
-    speakBtn.classList.add("show");
-
-}
-
-/* 音声ボタンを非表示 */
-function hideSpeakButton() {
-
-    speakBtn.classList.remove("show");
 
 }
 
@@ -325,29 +311,33 @@ startStudyBtn.addEventListener("click", () => {
     showScreen(studyScreen);
 
     // 最初の問題を表示
-    jpText.textContent = studyList[currentIndex].jp;
+    jpText.textContent =
+        studyList[currentIndex].jp;
 
     progressText.textContent =
         `${currentIndex + 1} / ${studyList.length} 問`;
+
+    updateReviewIcon();
 
     // 学習画面を初期化
     answerInput.value = "";
 
     resultArea.innerHTML = "";
 
-    answerArea.textContent = "";
-
-    hideSpeakButton();
+    answered = false;
 
     answerVisible = false;
 
-    showAnswerBtn.textContent = "答えを表示";
+    answerArea.textContent =
+        "＋ 答えを表示";
 
-    answered = false;
+    answerArea.classList.remove("show");
 
-    checkBtn.textContent = "判定";
+    checkBtn.textContent =
+        "判定";
 
-    checkBtn.style.background = "#2d7ef7";
+    checkBtn.style.background =
+        "#2d7ef7";
 
 });
 
@@ -414,46 +404,41 @@ function updateReviewIcon() {
     const question = studyList[currentIndex];
 
     if (question.review) {
-
         reviewIcon.classList.add("filled");
-
     } else {
-
         reviewIcon.classList.remove("filled");
-
     }
 
 }
 
-/* 答えを表示・非表示 */
-showAnswerBtn.addEventListener("click", () => {
+function toggleAnswer() {
 
     if (studyList.length === 0) return;
 
-    answerVisible = !answerVisible;
+    // 判定後は切り替え不可
+    if (answered) return;
 
-    if (answerVisible) {
+    if (!answerVisible) {
 
         answerArea.textContent =
             studyList[currentIndex].kr;
 
-        showSpeakButton();
+        answerArea.classList.add("show");
 
-        showAnswerBtn.textContent =
-            "答えを隠す";
+        answerVisible = true;
 
     } else {
 
-        answerArea.textContent = "";
+        answerArea.textContent =
+            "＋ 答えを表示";
 
-        hideSpeakButton();
+        answerArea.classList.remove("show");
 
-        showAnswerBtn.textContent =
-            "答えを表示";
+        answerVisible = false;
 
     }
 
-});
+}
 
 /* 判定・次の問題 */
 checkBtn.addEventListener("click", () => {
@@ -477,14 +462,17 @@ checkBtn.addEventListener("click", () => {
             resultArea.innerHTML =
                 '<span class="wrongText">❌ 不正解</span>';
 
-            answerArea.textContent =
-                correctAnswer;
-
-            showSpeakButton();
-
         }
 
+        // 判定後は答えを常に表示
         answered = true;
+
+        answerVisible = true;
+
+        answerArea.textContent =
+            correctAnswer;
+
+        answerArea.classList.add("show");
 
         checkBtn.textContent =
             "次へ";
@@ -522,14 +510,12 @@ checkBtn.addEventListener("click", () => {
 
     resultArea.innerHTML = "";
 
-    answerArea.textContent = "";
-
-    hideSpeakButton();
-
     answerVisible = false;
 
-    showAnswerBtn.textContent =
-        "答えを表示";
+    answerArea.textContent =
+        "＋ 答えを表示";
+
+    answerArea.classList.remove("show");
 
     answered = false;
 
@@ -545,6 +531,13 @@ checkBtn.addEventListener("click", () => {
    学習終了画面（Finish）
 ========================== */
 
+/* ホームへ戻る */
+backHomeFinish.addEventListener("click", () => {
+
+    showScreen(homeScreen);
+
+});
+
 /* もう一度学習 */
 restartStudyBtn.addEventListener("click", () => {
 
@@ -553,7 +546,8 @@ restartStudyBtn.addEventListener("click", () => {
     showScreen(studyScreen);
 
     // 最初の問題を表示
-    jpText.textContent = studyList[currentIndex].jp;
+    jpText.textContent =
+        studyList[currentIndex].jp;
 
     progressText.textContent =
         `${currentIndex + 1} / ${studyList.length} 問`;
@@ -565,24 +559,20 @@ restartStudyBtn.addEventListener("click", () => {
 
     resultArea.innerHTML = "";
 
-    answerArea.textContent = "";
-
     answerVisible = false;
 
-    showAnswerBtn.textContent = "答えを表示";
+    answerArea.textContent =
+        "＋ 答えを表示";
+
+    answerArea.classList.remove("show");
 
     answered = false;
 
-    checkBtn.textContent = "判定";
+    checkBtn.textContent =
+        "判定";
 
-    checkBtn.style.background = "#2d7ef7";
-
-});
-
-/* ホームへ戻る */
-backHomeFinish.addEventListener("click", () => {
-
-    showScreen(homeScreen);
+    checkBtn.style.background =
+        "#2d7ef7";
 
 });
 
