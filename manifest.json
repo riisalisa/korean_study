@@ -1,0 +1,22 @@
+{
+    "name": "My Languages",
+    "short_name": "My Languages",
+    "description": "自分だけの例文で学べる多言語学習アプリ",
+    "lang": "ja",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#f5f5f5",
+    "theme_color": "#007AFF",
+    "icons": [
+        {
+            "src": "icons/icon_NC_192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon_NC_512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
