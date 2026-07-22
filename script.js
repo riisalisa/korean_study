@@ -263,6 +263,82 @@ listBtn.addEventListener("click", () => {
 });
 
 /* ==========================
+   出題共通
+========================== */
+
+/* 問題を表示する */
+function showCurrentQuestion() {
+
+    jpText.textContent =
+        studyList[currentIndex].jp;
+
+    progressText.textContent =
+        `${currentIndex + 1} / ${studyList.length} 問`;
+
+    updateReviewIcon();
+
+}
+
+/* 学習画面の初期化 */
+function resetStudyScreen() {
+
+    answerInput.value = "";
+
+    resultArea.innerHTML = "";
+
+    answered = false;
+
+    answerVisible = false;
+
+    answerArea.textContent =
+        "＋ 答えを表示";
+
+    answerArea.classList.remove("show");
+
+    checkBtn.textContent =
+        "判定";
+
+    checkBtn.style.background =
+        "#2d7ef7";
+
+}
+
+/* 次の問題へ */
+function nextQuestion() {
+
+    currentIndex++;
+
+    // 学習終了
+    if (currentIndex >= studyList.length) {
+
+        showScreen(finishScreen);
+
+        return;
+
+    }
+
+    // 次の問題を表示
+    showCurrentQuestion();
+
+    // 学習画面を初期化
+    resetStudyScreen();
+
+}
+
+/* 学習開始 */
+function startStudy() {
+
+    currentIndex = 0;
+
+    showScreen(studyScreen);
+
+    showCurrentQuestion();
+
+    resetStudyScreen();
+
+}
+
+/* ==========================
    学習設定画面（Study Setting）
 ========================== */
 
@@ -310,38 +386,7 @@ startStudyBtn.addEventListener("click", () => {
     }
 
     // 学習開始
-    currentIndex = 0;
-
-    showScreen(studyScreen);
-
-    // 最初の問題を表示
-    jpText.textContent =
-        studyList[currentIndex].jp;
-
-    progressText.textContent =
-        `${currentIndex + 1} / ${studyList.length} 問`;
-
-    updateReviewIcon();
-
-    // 学習画面を初期化
-    answerInput.value = "";
-
-    resultArea.innerHTML = "";
-
-    answered = false;
-
-    answerVisible = false;
-
-    answerArea.textContent =
-        "＋ 答えを表示";
-
-    answerArea.classList.remove("show");
-
-    checkBtn.textContent =
-        "判定";
-
-    checkBtn.style.background =
-        "#2d7ef7";
+    startStudy();
 
 });
 
@@ -489,45 +534,7 @@ checkBtn.addEventListener("click", () => {
     }
 
     // 次の問題へ
-    currentIndex++;
-
-    // 学習終了
-    if (currentIndex >= studyList.length) {
-
-        showScreen(finishScreen);
-
-        return;
-
-    }
-
-    // 問題を更新
-    jpText.textContent =
-        studyList[currentIndex].jp;
-
-    progressText.textContent =
-        `${currentIndex + 1} / ${studyList.length} 問`;
-
-    updateReviewIcon();
-
-    // 学習画面を初期化
-    answerInput.value = "";
-
-    resultArea.innerHTML = "";
-
-    answerVisible = false;
-
-    answerArea.textContent =
-        "＋ 答えを表示";
-
-    answerArea.classList.remove("show");
-
-    answered = false;
-
-    checkBtn.textContent =
-        "判定";
-
-    checkBtn.style.background =
-        "#2d7ef7";
+    nextQuestion();
 
 });
 
@@ -550,33 +557,10 @@ restartStudyBtn.addEventListener("click", () => {
     showScreen(studyScreen);
 
     // 最初の問題を表示
-    jpText.textContent =
-        studyList[currentIndex].jp;
-
-    progressText.textContent =
-        `${currentIndex + 1} / ${studyList.length} 問`;
-
-    updateReviewIcon();
+    showCurrentQuestion();
 
     // 学習画面を初期化
-    answerInput.value = "";
-
-    resultArea.innerHTML = "";
-
-    answerVisible = false;
-
-    answerArea.textContent =
-        "＋ 答えを表示";
-
-    answerArea.classList.remove("show");
-
-    answered = false;
-
-    checkBtn.textContent =
-        "判定";
-
-    checkBtn.style.background =
-        "#2d7ef7";
+    resetStudyScreen();
 
 });
 
