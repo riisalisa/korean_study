@@ -172,6 +172,84 @@
 
             </div>
 
+            <!-- 学習モード -->
+            <p class="settingTitle">
+                学習モード
+            </p>
+
+            <div class="settingCard radioGroup">
+
+                <label>
+                    <input type="radio" name="learningMode" value="manual" checked>
+
+                    手動
+                </label>
+
+                <label>
+                    <input type="radio" name="learningMode" value="auto">
+
+                    オート
+                </label>
+
+            </div>
+
+            <!-- オート設定 -->
+            <div id="autoSettingArea" class="hidden">
+
+                <p class="settingTitle">
+                    オート設定
+                </p>
+
+                <div class="settingCard">
+
+                    <div class="settingRow">
+
+                        <label>
+                            音声
+                        </label>
+
+                        <select id="autoVoice">
+
+                            <option value="on">
+                                ON
+                            </option>
+
+                            <option value="off">
+                                OFF
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="settingRow">
+
+                        <label>
+                            速度
+                        </label>
+
+                        <select id="autoSpeed">
+
+                            <option value="slow">
+                                ゆっくり
+                            </option>
+
+                            <option value="normal" selected>
+                                ふつう
+                            </option>
+
+                            <option value="fast">
+                                はやめ
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
 
             <button id="startStudyBtn">
                 スタート

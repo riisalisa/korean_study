@@ -93,6 +93,7 @@ const progressText = document.getElementById("progressText");
 const jpText = document.getElementById("jpText");
 const resultArea = document.getElementById("resultArea");
 const answerArea = document.getElementById("answerArea");
+const autoSettingArea = document.getElementById("autoSettingArea");
 answerArea.addEventListener("click", toggleAnswer);
 
 /* 一括登録 */
@@ -123,6 +124,9 @@ let answerVisible = false;
 
 /* 判定済みか */
 let answered = false;
+
+/* 学習モード */
+let learningMode = "manual";
 
 /* 編集中の例文 */
 let editingQuestion = null;
@@ -332,9 +336,29 @@ function startStudy() {
 
     showScreen(studyScreen);
 
+    if (learningMode === "manual") {
+
+        startManualStudy();
+
+    } else {
+
+        startAutoStudy();
+
+    }
+
+}
+
+function startManualStudy() {
+
     showCurrentQuestion();
 
     resetStudyScreen();
+
+}
+
+function startAutoStudy() {
+
+    console.log("オート開始");
 
 }
 
@@ -349,6 +373,29 @@ backHomeSetting.addEventListener("click", () => {
 
 });
 
+const learningModeRadios =
+    document.querySelectorAll(
+        'input[name="learningMode"]'
+    );
+
+learningModeRadios.forEach(radio => {
+
+    radio.addEventListener("change", () => {
+
+        if (radio.value === "auto") {
+
+            autoSettingArea.classList.remove("hidden");
+
+        } else {
+
+            autoSettingArea.classList.add("hidden");
+
+        }
+
+    });
+
+});
+
 /* 学習開始 */
 startStudyBtn.addEventListener("click", () => {
 
@@ -360,6 +407,11 @@ startStudyBtn.addEventListener("click", () => {
     const studyMode =
         document.querySelector(
             'input[name="studyMode"]:checked'
+        ).value;
+
+    learningMode =
+        document.querySelector(
+            'input[name="learningMode"]:checked'
         ).value;
 
     // 指定範囲の例文を取得
