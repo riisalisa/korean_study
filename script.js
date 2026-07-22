@@ -39,6 +39,7 @@ const restartStudyBtn = document.getElementById("restartStudyBtn");
 const speakBtn = document.getElementById("speakBtn");
 const reviewBtn = document.getElementById("reviewBtn");
 const reviewIcon = document.getElementById("reviewIcon");
+const autoButtons = document.getElementById("autoButtons");
 
 /* 例文追加・一括登録 */
 const saveSentence = document.getElementById("saveSentence");
@@ -348,7 +349,17 @@ function startStudy() {
 
 }
 
+/* 手動モード */
 function startManualStudy() {
+
+    answerInput.classList.remove("hidden");
+
+    answerArea.classList.remove("hidden");
+
+    document.querySelector(".studyButtons")
+        .classList.remove("hidden");
+
+    autoButtons.classList.add("hidden");
 
     showCurrentQuestion();
 
@@ -356,9 +367,19 @@ function startManualStudy() {
 
 }
 
+/* 自動モード */
 function startAutoStudy() {
 
-    console.log("オート開始");
+    answerInput.classList.add("hidden");
+
+    answerArea.classList.add("hidden");
+
+    document.querySelector(".studyButtons")
+        .classList.add("hidden");
+
+    autoButtons.classList.remove("hidden");
+
+    showCurrentQuestion();
 
 }
 
