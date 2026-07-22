@@ -78,7 +78,7 @@ textarea {
 /* 白いカード */
 .settingBox,
 .csvArea,
-.favoriteArea {
+.reviewArea {
     background: #fff;
     padding: 15px;
     border-radius: 10px;
@@ -565,7 +565,7 @@ textarea {
 ========================== */
 
 /* お気に入り */
-.favoriteLabel {
+.reviewLabel {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -574,7 +574,7 @@ textarea {
     cursor: pointer;
 }
 
-.favoriteLabel input[type="checkbox"] {
+.reviewLabel input[type="checkbox"] {
     width: auto;
     height: auto;
     margin: 0;
@@ -729,7 +729,7 @@ textarea {
     transform: scale(0.9);
 }
 
-.favoriteBtn {
+.reviewBtn {
     width: 24px;
     height: 24px;
 
@@ -749,7 +749,7 @@ textarea {
     cursor: pointer;
 }
 
-.favoriteBtn:active {
+.reviewBtn:active {
     transform: scale(0.9);
 }
 
@@ -939,7 +939,7 @@ textarea {
 }
 
 /* 編集画面の★ */
-.favoriteStarLabel {
+.reviewLabel {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -948,21 +948,21 @@ textarea {
     cursor: pointer;
 }
 
-.favoriteStarLabel input {
+.reviewLabel input {
     display: none;
 }
 
-.favoriteStarLabel span {
+.reviewLabel span {
     font-size: 18px;
     color: #222;
 }
 
-.favoriteStarLabel span::before {
+.reviewLabel span::before {
     content: "📌 ";
     opacity: .35;
 }
 
-.favoriteStarLabel input:checked+span::before {
+.reviewLabel input:checked+span::before {
     opacity: 1;
 }
 

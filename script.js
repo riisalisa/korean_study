@@ -74,7 +74,6 @@ const answerInput = document.getElementById("answerInput");
 const languageSelect = document.getElementById("languageSelect");
 const jpInput = document.getElementById("jpInput");
 const krInput = document.getElementById("krInput");
-const favoriteCheck = document.getElementById("favoriteCheck");
 
 /* 一括登録 */
 const bulkText = document.getElementById("bulkText");
@@ -82,7 +81,7 @@ const bulkText = document.getElementById("bulkText");
 /* 編集ダイアログ */
 const editJpInput = document.getElementById("editJpInput");
 const editKrInput = document.getElementById("editKrInput");
-const editFavoriteCheck = document.getElementById("editFavoriteCheck");
+const editReviewCheck = document.getElementById("editReviewCheck");
 
 
 /* ==========================
@@ -184,8 +183,6 @@ function clearAddForm() {
 
     krInput.value = "";
 
-    favoriteCheck.checked = false;
-
 }
 
 /* 音声を読み上げる */
@@ -213,7 +210,7 @@ function updateSaveButton() {
 
         editKrInput.value.trim() !== originalEditData.kr ||
 
-        editFavoriteCheck.checked !==
+        editReviewCheck.checked !==
         originalEditData.review
 
     saveEditBtn.disabled = !changed;
@@ -823,7 +820,7 @@ function renderSentenceList() {
                     </button>
 
                     <button
-                        class="favoriteBtn"
+                        class="reviewBtn"
                         onclick="toggleReview(${question.id})">
 
                         <span class="material-symbols-outlined ${question.review ? "filled" : ""}">
@@ -906,21 +903,6 @@ window.toggleSentence = function (element) {
 
 };
 
-/* お気に入り切り替え */
-function toggleFavorite(id) {
-
-    const question = questions.find(q => q.id === id);
-
-    if (!question) return;
-
-    question.favorite = !question.favorite;
-
-    saveQuestions();
-
-    renderSentenceList();
-
-}
-
 /* 復習切り替え */
 function toggleReview(id) {
 
@@ -950,7 +932,7 @@ function editSentence(id) {
     editKrInput.value =
         editingQuestion.kr;
 
-    editFavoriteCheck.checked =
+    editReviewCheck.checked =
         editingQuestion.review;
 
     originalEditData = {
@@ -981,7 +963,7 @@ editJpInput.addEventListener("input", updateSaveButton);
 
 editKrInput.addEventListener("input", updateSaveButton);
 
-editFavoriteCheck.addEventListener("change", updateSaveButton);
+editReviewCheck.addEventListener("change", updateSaveButton);
 
 /* 編集内容を保存 */
 saveEditBtn.addEventListener("click", () => {
@@ -1005,7 +987,7 @@ saveEditBtn.addEventListener("click", () => {
     editingQuestion.kr = kr;
 
     editingQuestion.review =
-        editFavoriteCheck.checked;
+        editReviewCheck.checked;
 
     saveQuestions();
 
